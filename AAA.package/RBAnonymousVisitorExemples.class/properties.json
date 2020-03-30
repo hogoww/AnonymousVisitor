@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "RBProgramNodeVisitor",
+	"category" : "AAA",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"visits"
+	],
+	"name" : "RBAnonymousVisitorExemples",
+	"type" : "normal"
+}
