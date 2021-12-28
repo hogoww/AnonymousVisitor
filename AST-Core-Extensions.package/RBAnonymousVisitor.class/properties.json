@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "RBProgramNodeVisitor",
+	"category" : "AST-Core-Extensions",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"visits"
+	],
+	"name" : "RBAnonymousVisitor",
+	"type" : "normal"
+}
