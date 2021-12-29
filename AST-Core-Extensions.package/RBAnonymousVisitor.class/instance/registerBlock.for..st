@@ -15,4 +15,4 @@ registerBlock: aBlock for: aKindOfNode
 	    'cascadeNode' 'argumentNode' 'temporaryNode' 'unreachableStatement' ) 
 		 includes: aKindOfNode) ifFalse: [ 
 		self error: aKindOfNode , ' does not seem to exist.' ].
-	visits at: #aKindOfNode put: aBlock
+	visits at: aKindOfNode put: aBlock
