@@ -1,11 +1,11 @@
 tests-materialization
-testMaterializedWithNoVariableCreatesAClass
+testMaterializedWithNoVariableDoesNotCreateInitialize
 	| classReference |
 	visitor registerBlock: [ :aNode | aNode crTrace ]
 		for: #messageNode.
 		
 	visitor materializeAs: #PrintMessageVisitors.
-	classReference :=  (self class environment classNamed: #PrintMessageVisitors).
+	classReference := (self class environment classNamed: #PrintMessageVisitors).
 	
-	self assert: classReference isNotNil.
+	self deny: (classReference includesSelector: #initialize).
 	classReference removeFromSystem

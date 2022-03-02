@@ -18,6 +18,6 @@ addInitializeMethod
 		body add: [ ivName := valueBuilder ]
 		 ].
 	
-	method := 'intialize'
+	method := 'initialize'
 		 asMethodWithBody: body withArguments: (instanceVariables collect: [:aVar| aVar -> nil] ) asDictionary.
 	newClass compile: method printString

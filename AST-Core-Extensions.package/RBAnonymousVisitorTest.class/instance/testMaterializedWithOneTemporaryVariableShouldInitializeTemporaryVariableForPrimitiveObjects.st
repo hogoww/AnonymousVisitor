@@ -1,5 +1,5 @@
 tests-materialization
-testMaterializedWithOneTemporaryVariableShouldDefineAnInstanceVariableInMaterializedClass
+testMaterializedWithOneTemporaryVariableShouldInitializeTemporaryVariableForPrimitiveObjects
 	| counter classReference | 
 	counter := 0.
 	visitor registerBlock: [ :aNode | counter := counter + 1 ]
@@ -8,6 +8,6 @@ testMaterializedWithOneTemporaryVariableShouldDefineAnInstanceVariableInMaterial
 	visitor materializeAs: #MessageCounterVisitor.
 	
 	classReference := self class environment classNamed: #MessageCounterVisitor.
-	self assert: classReference allInstVarNames size equals: 1. 
-	self assert: classReference allInstVarNames anyOne equals: #counter.
+
+	self assert: classReference >> #initialize initializeVariable: #counter toValue: 0.	
 	classReference removeFromSystem
