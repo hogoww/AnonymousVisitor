@@ -1,6 +1,7 @@
 as yet unclassified
 generateMethods
-	| methods register visits registerCode |
+	<script>
+	| methods register visits registerCode blocks source |
 	methods := RBProgramNodeVisitor methods select: [:m| (m selector first: 5) = #visit and: [((m selector at: 6) = $: ) not] ].
 	visits:= nil.
 	register := OrderedCollection new.
@@ -14,7 +15,7 @@ generateMethods
 			visits at: #aKindOfNode ifPresent: [ :aBlock | aBlock cull: aKindOfNode ].
 			^ super visitMethodName: { aKindOfNode }
 		] withArguments: { #aKindOfNode -> nodeKind } asDictionary.
-		[ RBAnonymousVisitor compile: methodSource asString classified: m protocol ] on: Exception do: [:e| 	self halt. ]
+		[ RBAnonymousVisitor compile: methodSource asString classified: m protocol ] on: Exception do: [:e| self halt. ]
 	].
 	
 	register := register asArray.
@@ -22,4 +23,20 @@ generateMethods
 		(#(register) includes: aKindOfNode) ifFalse: [ self error: aKindOfNode , ' does not seem to exist.' ].
 		visits at: #aKindOfNode put: aBlock.
 		].
-	[ RBAnonymousVisitor compile: registerCode asString classified: #configuring ] on: Exception do: [:e| 	self halt. ].
+	[ RBAnonymousVisitor compile: registerCode asString classified: #configuring ] on: Exception do: [:e| self halt. ].
+
+	blocks := [ ] asPlainCodeBC.
+	methods do: [ :aMethod | | selector nodeKind |
+		selector := aMethod selector value.
+		nodeKind := (selector last: selector size - 5) uncapitalized.
+		blocks add: [ :aNodeKind | aNodeKind = #nodeKind ifTrue: [ ^ #selector ] ].
+		].
+	blocks add: [ self error: 'No node selector exists for this kind of node.' ].
+	
+	source := 'selectorFor:' asMethodWithBody: blocks.
+	[ RBAnonymousVisitor compile: source asString classified: #configuring ] on: Exception do: [:e| self halt. ].
+
+	registerCode := 'materializeAs:' asMethodWithBody: [ :aClassName |
+		^ self class materialize: self as: aClassName.
+		].
+	[ RBAnonymousVisitor compile: registerCode asString classified: #configuring ] on: Exception do: [:e| self halt. ].
