@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "AST-Core-Extensions",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"visitor",
+		"newClassName",
+		"instanceVariables",
+		"newClass"
+	],
+	"name" : "RBAnonymousVisitorMaterializer",
+	"type" : "normal"
+}

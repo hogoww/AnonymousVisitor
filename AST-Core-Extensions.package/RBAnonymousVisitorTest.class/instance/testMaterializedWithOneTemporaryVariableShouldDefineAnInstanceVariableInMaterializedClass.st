@@ -9,5 +9,5 @@ testMaterializedWithOneTemporaryVariableShouldDefineAnInstanceVariableInMaterial
 	
 	classReference := self class environment classNamed: #MessageCounterVisitor.
 	self assert: classReference allInstVarNames size equals: 1. 
-	self assert: (classReference allInstVarNames includes: #counter).
+	self assert: (classReference allInstVarNames anyOne = #counter).
 	classReference removeFromSystem
