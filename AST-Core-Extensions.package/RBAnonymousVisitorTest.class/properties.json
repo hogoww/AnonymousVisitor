@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "TestCase",
+	"category" : "AST-Core-Extensions",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"visits",
+		"visitor"
+	],
+	"name" : "RBAnonymousVisitorTest",
+	"type" : "normal"
+}

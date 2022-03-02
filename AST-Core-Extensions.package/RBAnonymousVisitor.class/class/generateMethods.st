@@ -21,7 +21,7 @@ generateMethods
 	register := register asArray.
 	registerCode := 'registerBlock:for:' asMethodWithBody: [ :aBlock :aKindOfNode |
 		(#(register) includes: aKindOfNode) ifFalse: [ self error: aKindOfNode , ' does not seem to exist.' ].
-		visits at: #aKindOfNode put: aBlock.
+		visits at: aKindOfNode put: aBlock.
 		].
 	[ RBAnonymousVisitor compile: registerCode asString classified: #configuring ] on: Exception do: [:e| self halt. ].
 
@@ -29,6 +29,7 @@ generateMethods
 	methods do: [ :aMethod | | selector nodeKind |
 		selector := aMethod selector value.
 		nodeKind := (selector last: selector size - 5) uncapitalized.
+		nodeKind := nodeKind first: nodeKind size - 1.
 		blocks add: [ :aNodeKind | aNodeKind = #nodeKind ifTrue: [ ^ #selector ] ].
 		].
 	blocks add: [ self error: 'No node selector exists for this kind of node.' ].

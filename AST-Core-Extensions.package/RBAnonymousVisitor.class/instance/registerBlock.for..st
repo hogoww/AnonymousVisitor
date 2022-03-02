@@ -15,4 +15,4 @@ registerBlock: aBlock for: aKindOfNode
 	    'assignmentNode' 'arrayNode' 'argumentVariableNode'
 	    'temporaryNodes' ) includes: aKindOfNode) ifFalse: [ 
 		self error: aKindOfNode , ' does not seem to exist.' ].
-	visits at: #aKindOfNode put: aBlock
+	visits at: aKindOfNode put: aBlock
