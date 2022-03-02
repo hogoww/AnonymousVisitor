@@ -4,10 +4,11 @@ addInitializeMethod
 	
 	instanceVariables ifEmpty: [ ^ self ].
 	
-	environments := visitor visits collect: #asPCBlock.
+	environments := visitor visits collect: [ :aBlock | aBlock asPCBlock ].
 	ivNames := instanceVariables asOrderedCollection collect: #name.
 	instanceVariablesInititialization := ivNames flatCollect: [ :anIvName |
-			environments select: [ :anEnv | anEnv variables keys includes: anIvName ] 
+			environments select: [ :anEnv | 
+				anEnv variables keys includes: anIvName ] 
 				thenCollect: [ :anEnv | anIvName -> (anEnv variables at: anIvName) ].
 		].
 	body := [ ] asPlainCodeBC.
