@@ -1,8 +1,8 @@
-as yet unclassified
+code-generation
 generateMethods
 	<script>
 	| methods register visits registerCode blocks source |
-	methods := RBProgramNodeVisitor methods select: [:m| (m selector first: 5) = #visit and: [((m selector at: 6) = $: ) not] ].
+	methods := self baseClass methods select: [:m| (m selector first: 5) = #visit and: [((m selector at: 6) = $: ) not] ].
 	visits:= nil.
 	register := OrderedCollection new.
 	methods do: [ :m |
@@ -18,7 +18,7 @@ generateMethods
 		[ RBAnonymousVisitor compile: methodSource asString classified: m protocol ] on: Exception do: [:e| self halt. ]
 	].
 	
-	register := register asArray.
+	register := register asArray sort.
 	registerCode := 'registerBlock:for:' asMethodWithBody: [ :aBlock :aKindOfNode |
 		(#(register) includes: aKindOfNode) ifFalse: [ self error: aKindOfNode , ' does not seem to exist.' ].
 		visits at: aKindOfNode put: aBlock.
@@ -35,9 +35,9 @@ generateMethods
 	blocks add: [ self error: 'No node selector exists for this kind of node.' ].
 	
 	source := 'selectorFor:' asMethodWithBody: blocks.
-	[ RBAnonymousVisitor compile: source asString classified: #configuring ] on: Exception do: [:e| self halt. ].
+	[ RBAnonymousVisitor compile: source asString classified: #querying ] on: Exception do: [:e| self halt. ].
 
 	registerCode := 'materializeAs:' asMethodWithBody: [ :aClassName |
 		^ self class materialize: self as: aClassName.
 		].
-	[ RBAnonymousVisitor compile: registerCode asString classified: #configuring ] on: Exception do: [:e| self halt. ].
+	[ RBAnonymousVisitor compile: registerCode asString classified: #api ] on: Exception do: [:e| self halt. ].

@@ -1,18 +1,18 @@
 configuring
 registerBlock: aBlock for: aKindOfNode
 
-	(#( 'variableNode' 'thisContextNode' 'classVariableNode'
-	    'storePopIntoTempNode' 'literalNode' 'pragmaNode' 'selectorNode'
-	    'argumentNode' 'sequenceNode' 'englobingErrorNode'
-	    'node' 'superNode' 'messageNode' 'literalArrayNode'
-	    'patternWrapperBlockNode' 'literalVariableNode'
-	    'methodNode' 'temporaryDeclarationNode'
-	    'selfNode' 'unreachableStatement' 'temporaryVariableNode'
-	    'patternBlockNode' 'parseErrorNode' 'localVariableNode'
-	    'literalValueNode' 'globalNode' 'returnNode' 'temporaryNode'
-	    'storeIntoTempNode' 'blockNode' 'argumentNodes' 'instanceVariableNode'
-	    'cascadeNode' 'globalVariableNode' 'slotInitializationNode'
-	    'assignmentNode' 'arrayNode' 'argumentVariableNode'
-	    'temporaryNodes' ) includes: aKindOfNode) ifFalse: [ 
+	(#( 'argumentNode' 'argumentNodes' 'argumentVariableNode'
+	    'arrayNode' 'assignmentNode' 'blockNode' 'cascadeNode'
+	    'classVariableNode' 'englobingErrorNode' 'globalNode'
+	    'globalVariableNode' 'instanceVariableNode'
+	    'literalArrayNode' 'literalNode' 'literalValueNode'
+	    'literalVariableNode' 'localVariableNode' 'messageNode'
+	    'methodNode' 'node' 'parseErrorNode' 'patternBlockNode'
+	    'patternWrapperBlockNode' 'pragmaNode' 'returnNode' 'selectorNode'
+	    'selfNode' 'sequenceNode' 'slotInitializationNode'
+	    'storeIntoTempNode' 'storePopIntoTempNode' 'superNode'
+	    'temporaryDeclarationNode' 'temporaryNode' 'temporaryNodes'
+	    'temporaryVariableNode' 'thisContextNode' 'unreachableStatement'
+	    'variableNode' ) includes: aKindOfNode) ifFalse: [ 
 		self error: aKindOfNode , ' does not seem to exist.' ].
 	visits at: aKindOfNode put: aBlock
